@@ -34,7 +34,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+
+allowed_hosts_env = os.getenv("ALLOWED_HOSTS", "localhost")
+ALLOWED_HOSTS = allowed_hosts_env.split(",")
 
 
 #Celery
