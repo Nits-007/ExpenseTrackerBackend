@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres  #serice name becomes the host name
+  namesapce: expense_namespace
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+    - targetPort: 5432
