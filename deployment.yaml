@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-backend
+  namespace: expense-tracker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: expense-backend
+  template:
+    metadata:
+      labels:
+        app: expense-backend
+    spec:
+      containers:
+        - name: django
+          image: your-dockerhub-username/expense-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: postgres://postgres:postgres@postgres:5432/expenses
+            - name: REDIS_URL
+              value: redis://redis:6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flutter-frontend
+  namespace: expense-tracker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flutter-frontend
+  template:
+    metadata:
+      labels:
+        app: flutter-frontend
+    spec:
+      containers:
+        - name: flutter
+          image: your-dockerhub-username/expense-frontend:latest
+          ports:
+            - containerPort: 80
